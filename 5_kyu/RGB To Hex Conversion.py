@@ -5,32 +5,8 @@
 # argument values that fall out of that range should be rounded to the closest valid value.
 
 
-def dec_to_hex(color):
-    letters = 'ABCDEF'
-    hexa = []
-    if color < 0:
-        color = 0
-    if color > 255:
-        color = 255
-    ratio = color % 16
-    if ratio < 10:
-        hexa.append(str(ratio))
-    if 10 <= ratio <= 15:
-        hexa.append(letters[ratio - 10])
-    if color > 15:
-        hexa.append(dec_to_hex(color // 16))
-    return ''.join(hexa)
-
-
-def rgb(a, b, c):
-    buf = []
-    for color in (a, b, c):
-        hex_color = dec_to_hex(color)[::-1]
-        if len(hex_color) == 1:
-            hex_color = '0' + hex_color
-        buf.append(hex_color)
-    out = ''.join(buf)
-    return out
+def rgb(r, g, b):
+    return ''.join(['{:02X}'.format(x) for x in [max(0, min(y, 255)) for y in (r, g, b)]])
 
 
 color_1 = (255, 255, 255)
